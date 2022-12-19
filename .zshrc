@@ -12,8 +12,8 @@ compinit
 # End of lines added by compinstall
 
 # Add some keybinds that should exist by default
-bindkey "\e[7~" beginning-of-line
-bindkey "\e[8~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
 bindkey "\e[3~" delete-char
 bindkey "\e[5~" history-beginning-search-backward
 bindkey "\e[6~" history-beginning-search-forward
@@ -39,18 +39,30 @@ unsetopt list_beep
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
-alias ls='ls --color=auto'
+alias ls='ls --color'
+alias ll='ls -l'
+alias li='ls -li'
+alias la='ls -la'
+alias ..='cd ..'
 alias units='units -v'
 alias grep='grep --color=auto'
-alias yd='yt-dlp --no-part -v --no-playlist --add-metadata'
+alias yd='youtube-dl --no-part -v --no-playlist'
+alias skype='apulse32 skype'
+
+function defaults () {
+	pushd /cygdrive/c/Program\ Files\ \(x86\)/Common\ Files/Apple/Apple\ Application\ Support/ > /dev/null 2> /dev/null
+	./defaults "$@"
+	popd > /dev/null 2> /dev/null
+}
 
 export EDITOR=vim
-export PATH=$PATH:~/bin
+export PATH=$PATH:~/bini
 # Make systemd not page
 export SYSTEMD_PAGER=
 
 # Make everything colorful
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export ZSH_HIGHLIGHT_HIGHLIGHTERS_DIR=/usr/share/zsh-syntax-highlighting/highlighters
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=magenta'
 ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=magenta'
@@ -61,11 +73,9 @@ export GCC_COLORS="error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 # Make update-mime-database not take 3 years to finish
 export PKGSYSTEM_DISABLE_FSYNC=1
 
-# Make ls output filenames without extra decoration
-export QUOTING_STYLE=literal
-
 # Use both the 32 and 64-bit ladspa plugins
 export LADSPA_PATH=/usr/lib/ladspa:/usr/lib32/ladspa
 
-pom
-fortune -c
+fpath=(/usr/local/share/zsh-completions $fpath)
+#pom
+fortune
